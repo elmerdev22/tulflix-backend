@@ -1,10 +1,7 @@
-module.exports = (function () {
-    "use strict";
-    var router = require("express").Router();
+var router = require("express").Router();
 
-    router.get("/api/v1/playlists", function (req, res) {
-        res.json({ foo: "sample express js" });
-    });
+router.get("/playlists", function (req, res) {
+    res.json({ foo: "sample express jwfs" });
+});
 
-    return router;
-})();
+module.exports = router;
