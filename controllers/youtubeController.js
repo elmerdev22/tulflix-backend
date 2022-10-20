@@ -5,10 +5,12 @@ const CHANNEL_ID = "UCxhygwqQ1ZMoBGQM2yEcNug"; //Raffly Tulfo Channel ID
 
 exports.playlists = async (req, res) => {
     try {
+        let queryParams = require("url").parse(req.url, true).query;
         const response = await youtube.playlists.list({
             key: API_KEY,
             channelId: CHANNEL_ID,
             part: "id,snippet,contentDetails",
+            maxResults: queryParams.perPage,
         });
         return res.json({ status: 200, data: response.data });
     } catch (error) {
