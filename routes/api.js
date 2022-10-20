@@ -1,15 +1,9 @@
 var router = require("express").Router();
 
-router.get("/playlists", async (req, res) => {
-    try {
-        res.json({
-            status: 200,
-            message: "Get data has successfully",
-        });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).send("Server error");
-    }
-});
+const youtubeController = require("../controllers/youtubeController");
+
+router.get("/playlists", youtubeController.playlists);
+router.get("/playlists/items/:id", youtubeController.playlistItems);
+router.get("/search", youtubeController.search);
 
 module.exports = router;
