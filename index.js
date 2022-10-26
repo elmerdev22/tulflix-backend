@@ -9,6 +9,20 @@ app.use(
     })
 );
 
+const validateSignature = (req, res, next) => {
+    let xSignature = req.header("X-Signature");
+    let appXSignature = process.env.REACT_APP_API_SIGNATURE_KEY;
+
+    if (xSignature !== appXSignature) {
+        return res
+            .status(400)
+            .json({ message: "Invalid Api Access Signature Key" });
+    }
+    next();
+};
+
+app.use(validateSignature);
+
 app.use("/api/v1", routes);
 
 app.listen(port, () => {

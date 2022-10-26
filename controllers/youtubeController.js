@@ -1,7 +1,7 @@
 const { google } = require("googleapis");
 const youtube = google.youtube("v3");
-const API_KEY = "AIzaSyAgezA81tytb1rfGlOkq4eqyAVXFyz5JvA";
-const CHANNEL_ID = "UCxhygwqQ1ZMoBGQM2yEcNug"; //Raffly Tulfo Channel ID
+const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
+const CHANNEL_ID = process.env.REACT_APP_YOUTUBE_CHANNEL_ID;
 
 exports.playlists = async (req, res) => {
     try {
@@ -12,7 +12,10 @@ exports.playlists = async (req, res) => {
             part: "id,snippet,contentDetails",
             maxResults: queryParams.perPage,
         });
-        return res.json({ status: 200, data: response.data });
+
+        return res
+            .status(response.status)
+            .json({ status: response.status, data: response.data });
     } catch (error) {
         console.error(error);
         return res.status(500).send("Server error");
@@ -30,7 +33,10 @@ exports.playlistItems = async (req, res) => {
             q: queryParams.search,
             maxResults: queryParams.perPage,
         });
-        return res.json({ status: 200, data: response.data });
+
+        return res
+            .status(response.status)
+            .json({ status: response.status, data: response.data });
     } catch (error) {
         console.error(error);
         return res.status(500).send("Server error");
@@ -48,7 +54,10 @@ exports.search = async (req, res) => {
             maxResults: queryParams.perPage,
             order: queryParams.order,
         });
-        return res.json({ status: 200, data: response.data });
+
+        return res
+            .status(response.status)
+            .json({ status: response.status, data: response.data });
     } catch (error) {
         console.error(error);
         return res.status(500).send("Server error");
