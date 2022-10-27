@@ -9,7 +9,7 @@ exports.playlists = async (req, res) => {
         const response = await youtube.playlists.list({
             key: API_KEY,
             channelId: CHANNEL_ID,
-            part: "id,snippet,contentDetails",
+            part: queryParams.part,
             maxResults: queryParams.perPage,
         });
 
@@ -29,7 +29,7 @@ exports.playlistItems = async (req, res) => {
             key: API_KEY,
             channelId: CHANNEL_ID,
             playlistId: req.params.id,
-            part: "id,snippet,contentDetails",
+            part: queryParams.part,
             q: queryParams.search,
             maxResults: queryParams.perPage,
         });
@@ -49,7 +49,7 @@ exports.search = async (req, res) => {
         const response = await youtube.search.list({
             key: API_KEY,
             channelId: CHANNEL_ID,
-            part: "id,snippet",
+            part: queryParams.part,
             q: queryParams.search,
             maxResults: queryParams.perPage,
             order: queryParams.order,
